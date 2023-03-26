@@ -143,7 +143,7 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
         {
             try
             {
-                System.out.println("User sucessfully deleted!");
+                System.out.println("User sucessfully deleted!!");
                 if (resultSet != null)
                 {
                     resultSet.close();
