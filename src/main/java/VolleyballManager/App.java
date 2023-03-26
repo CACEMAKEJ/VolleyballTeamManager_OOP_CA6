@@ -30,6 +30,8 @@ public class App
             else
                 System.out.println("user with id 1 not found");
 
+            IUserDao.deletePlayerById(3);
+
 
         }
         catch(DaoException e )
