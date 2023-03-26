@@ -32,6 +32,19 @@ public class App
 
             IUserDao.deletePlayerById(3);
 
+            System.out.println("----After new player added---");
+            Player player2 = new Player("Martin", "Macicha", "2002-01-22", "Opposite Hitter", 4);
+            IUserDao.addPlayer(player2);
+            players = IUserDao.findAllPlayers();
+
+            if( players.isEmpty() )
+                System.out.println("No players found.");
+            else {
+                for (Player player : players)
+                    System.out.println("Player: " + player.toString());
+            }
+
+
 
         }
         catch(DaoException e )

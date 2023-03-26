@@ -163,6 +163,52 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
         }
     }
 
+    public void addPlayer(Player player) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try
+        {
+            connection = this.getConnection();
+
+            String query = "INSERT INTO players (first_name, last_name, birthdate, position, team_id) VALUES(?,?,?,?,?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString( 1, player.getFirst_name());
+            preparedStatement.setString( 2, player.getLast_name());
+            preparedStatement.setString( 3, player.getBirthdate());
+            preparedStatement.setString( 4, player.getPosition());
+            preparedStatement.setInt( 5, player.getTeam_id());
+
+
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            throw new DaoException("addUser() " + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (resultSet != null)
+                {
+                    resultSet.close();
+                }
+                if (preparedStatement != null)
+                {
+                    preparedStatement.close();
+                }
+                if (connection != null)
+                {
+                    freeConnection(connection);
+                }
+            } catch (SQLException e)
+            {
+                throw new DaoException("findUserByLastName() " + e.getMessage());
+            }
+        }
+    }
+
 
 }
 
