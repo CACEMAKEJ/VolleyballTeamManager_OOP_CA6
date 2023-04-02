@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
     @Override
@@ -163,21 +164,26 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
         }
     }
 
-    public void addPlayer(Player player) throws DaoException {
+    public void addPlayer() throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try
         {
+            Scanner keyboard = new Scanner(System.in);
             connection = this.getConnection();
-
             String query = "INSERT INTO players (first_name, last_name, birthdate, position, team_id) VALUES(?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString( 1, player.getFirst_name());
-            preparedStatement.setString( 2, player.getLast_name());
-            preparedStatement.setString( 3, player.getBirthdate());
-            preparedStatement.setString( 4, player.getPosition());
-            preparedStatement.setInt( 5, player.getTeam_id());
+            System.out.print("Please enter player first name:");
+            preparedStatement.setString( 1, keyboard.nextLine());
+            System.out.print("\nPlease enter player last name:");
+            preparedStatement.setString( 2, keyboard.nextLine());
+            System.out.print("\nPlease enter player birth date (YYYY-MM-DD):");
+            preparedStatement.setString( 3, keyboard.nextLine());
+            System.out.print("\nPlease enter player position:");
+            preparedStatement.setString( 4, keyboard.nextLine());
+            System.out.print("\nPlease enter player team id:");
+            preparedStatement.setInt( 5, keyboard.nextInt());
 
 
 
