@@ -2,6 +2,7 @@ package DAOs;
 
 import DTOs.Player;
 import Exceptions.DaoException;
+import VolleyballManager.PlayerListContainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,12 +14,12 @@ import java.util.Scanner;
 
 public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
     @Override
-    public List<Player> findAllPlayers() throws DaoException
+    public PlayerListContainer findAllPlayers() throws DaoException
     {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        List<Player> playerList = new ArrayList<>();
+        PlayerListContainer playerListContainer = new PlayerListContainer();
 
         try
         {
@@ -39,7 +40,7 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
                 String position = resultSet.getString("position");
                 int team_id = resultSet.getInt("team_id");
                 Player p = new Player(id, firstName, lastName, birthdate, position, team_id);
-                playerList.add(p);
+                playerListContainer.add(p);
             }
         } catch (SQLException e)
         {
@@ -65,7 +66,7 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
                 throw new DaoException("findAllUsers() " + e.getMessage());
             }
         }
-        return playerList;     // may be empty
+        return playerListContainer;     // may be empty
     }
 
     @Override
@@ -213,6 +214,11 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
                 throw new DaoException("findUserByLastName() " + e.getMessage());
             }
         }
+    }
+
+    @Override
+    public List<Player> filterPlayersByPosition(String input) throws DaoException {
+        return null;
     }
 
 
