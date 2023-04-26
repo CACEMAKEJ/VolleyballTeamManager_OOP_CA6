@@ -81,6 +81,9 @@ public class App
             List<Player> filteredList = playerListContainer.filterBy(new Filter_PlayerPosition(output));
             System.out.println(filteredList);
 
+            String jsonString = IUserDao.findAllPlayersJson();
+            System.out.println(jsonString);
+
 
 
 

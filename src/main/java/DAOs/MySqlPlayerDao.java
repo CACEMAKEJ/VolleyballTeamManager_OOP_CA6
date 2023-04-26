@@ -3,6 +3,7 @@ package DAOs;
 import DTOs.Player;
 import Exceptions.DaoException;
 import VolleyballManager.PlayerListContainer;
+import com.google.gson.Gson;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -214,6 +215,13 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
                 throw new DaoException("findUserByLastName() " + e.getMessage());
             }
         }
+    }
+
+    public String findAllPlayersJson() throws DaoException {
+        Gson gsonParser = new Gson();
+        PlayerListContainer fetchedData = findAllPlayers();
+        String jsonData = gsonParser.toJson(fetchedData.playerList);
+        return jsonData;
     }
 
     @Override
