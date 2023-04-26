@@ -13,14 +13,18 @@ import java.util.Scanner;
 
 public class App
 {
+    public static PlayerDaoInterface IUserDao = new MySqlPlayerDao();  //"IUserDao" -> "I" stands for for
+    public static PlayerListContainer playerListContainer = new PlayerListContainer();
+    public static HashSet<Integer> playerIDs = new HashSet<Integer>();
+
     public static void main(String[] args)
     {
-        PlayerDaoInterface IUserDao = new MySqlPlayerDao();  //"IUserDao" -> "I" stands for for
-        PlayerListContainer playerListContainer = new PlayerListContainer();
-        HashSet<Integer> playerIDs = new HashSet<Integer>();
-        Scanner keyboard = new Scanner(System.in);
+
         try
         {
+
+            Scanner keyboard = new Scanner(System.in);
+
             System.out.println("Choose an option:");
             System.out.println("1 - List all players");
             System.out.println("2 - Find player by ID");
@@ -36,18 +40,7 @@ public class App
             String jsonString;
             switch(menuChoice){
                 case 1:
-                    System.out.println("\nCall findAllPLayers()");
-                    playerListContainer = IUserDao.findAllPlayers();     // call a method in the DAO
-
-                    if( playerListContainer.playerList.isEmpty() )
-                        System.out.println("No players found.");
-                    else {
-                        for (Player player : playerListContainer.playerList){
-                            playerIDs.add(player.getId());
-                            System.out.println("Player: " + player.toString());
-                        }
-
-                    }; break;
+                    findAllPlayers();
                 case 2:
                     input=keyboard.nextInt();
                     Player player1 = IUserDao.findPlayerById(input);
@@ -104,6 +97,21 @@ public class App
         catch(DaoException e )
         {
             e.printStackTrace();
+        }
+    }
+
+    public static void findAllPlayers() throws DaoException {
+        System.out.println("\nCall findAllPLayers()");
+        playerListContainer = IUserDao.findAllPlayers();     // call a method in the DAO
+
+        if( playerListContainer.playerList.isEmpty() )
+            System.out.println("No players found.");
+        else {
+            for (Player player : playerListContainer.playerList){
+                playerIDs.add(player.getId());
+                System.out.println("Player: " + player.toString());
+            }
+
         }
     }
 
