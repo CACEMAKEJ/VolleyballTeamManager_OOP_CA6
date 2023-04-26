@@ -15,6 +15,7 @@ public interface PlayerDaoInterface
     public void addPlayer() throws DaoException;
     public List<Player> filterPlayersByPosition(String input) throws DaoException;
     public String findAllPlayersJson() throws DaoException;
+    public String findPlayerByIdJson(int input) throws DaoException;
 
 
 

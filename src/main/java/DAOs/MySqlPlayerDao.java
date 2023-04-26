@@ -224,6 +224,15 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface{
         return jsonData;
     }
 
+
+    public String findPlayerByIdJson(int inputId) throws DaoException{
+        Gson gsonParser = new Gson();
+        Player fetchedData = findPlayerById(inputId);
+        String jsonData = gsonParser.toJson(fetchedData);
+        return jsonData;
+    }
+
+
     @Override
     public List<Player> filterPlayersByPosition(String input) throws DaoException {
         return null;
