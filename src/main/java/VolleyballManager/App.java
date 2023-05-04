@@ -71,7 +71,7 @@ public class App
                     System.out.println("4 - Libero");
                     System.out.println("5 - Setter");
                     System.out.print("\nChoose an option:");
-                    int choice = keyboard.nextInt();
+
                     String output = "";
                     switch(choice){
                         case 1: output = "Outside Hitter";break;
@@ -89,7 +89,9 @@ public class App
                     System.out.println(jsonString);
                     break;
                 case 7:
-                    jsonString = IUserDao.findPlayerByIdJson(5);
+                    System.out.print("Enter player id:");
+                    int choice = keyboard.nextInt();
+                    jsonString = IUserDao.findPlayerByIdJson(choice);
                     System.out.println(jsonString);
                     break;
             }
